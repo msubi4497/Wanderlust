@@ -33,7 +33,7 @@ async function main(){
 }
 
 // async function main(){
-//     await mongoose.connect(dbURL);
+//     await mongoose.connect(MONGO_URL);
 // }
 
 main()
@@ -55,14 +55,14 @@ app.use(express.static(path.join(__dirname, "/public")));
 const store = MongoStrore.create({
     mongoUrl: dbURL,
     crypto:{
-        secret: "mysupersecretcode",
+        secret: process.env.SECRET,
     },
     touchAfter: 24*3600
 });
 
 const sessionOption = {
     store,
-    secret: "mysupersecretcode", 
+    secret: process.env.SECRET, 
     resave: false, 
     saveUninitialized: true,
     cookie: {
